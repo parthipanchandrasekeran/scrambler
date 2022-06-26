@@ -1,0 +1,92 @@
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "OpenSans-Bold";
+  src: local("OpenSans-Bold"), url("../assets/font/OpenSans/OpenSans-Bold.ttf") format("truetype");
+  font-family: "OpenSans-BoldItalic";
+  src: local("OpenSans-BoldItalic"), url("../assets/font/OpenSans/OpenSans-BoldItalic.ttf") format("truetype");
+  font-family: "OpenSans-Light";
+  src: local("OpenSans-Light"), url("../assets/font/OpenSans/OpenSans-Light.ttf") format("truetype");
+  font-family: "OpenSans-Light";
+  src: local("OpenSans-Medium"), url("../assets/font/OpenSans/OpenSans-Medium.ttf") format("truetype");
+  src: local("OpenSans-Regular"), url("../assets/font/OpenSans/OpenSans-Regular.ttf") format("truetype");
+}
+.word-main {
+  background-color: #e1e1e1;
+  padding: 50px;
+}
+.word-main__text {
+  font-family: "OpenSans-Medium";
+  width: 100%;
+  padding-top: 50px;
+}
+.word-main__sub {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+}
+.word-main__guess-text, .word-main__clue-text {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: "OpenSans-Light";
+  width: 100%;
+}
+.word-main__score-text {
+  font-family: "OpenSans-Bold";
+  width: 100%;
+  padding: 20px 0;
+}
+
+.text-container__main {
+  width: 100%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  background-color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.text-container__matched-section {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 10px;
+  padding: 5px 0;
+}
+.text-container__end-section {
+  width: 100%;
+  margin: 0 10px;
+}
+.text-container__end-section-sub {
+  background-color: #ffb74d;
+  height: 40px;
+  border: none;
+}
+.text-container__no-match-main {
+  display: flex;
+  margin: 10px 0;
+}
+.text-container__match-main {
+  display: flex;
+  width: 100%;
+}
+
+input {
+  height: 40px;
+  width: 100%;
+  margin: 0 5px;
+  text-align: center;
+  background-color: #e1e1e1;
+  border: none;
+}/*# sourceMappingURL=Main.css.map */
