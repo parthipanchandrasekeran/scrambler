@@ -1,11 +1,13 @@
 import React from "react";
 import "../styles/Main.scss";
 import { useState, useEffect } from "react";
+import Next from "./Next";
 
 function Textcontainer({ data, actualText }) {
   const [input, setInput] = useState("");
   const [answerMap, setanswerMap] = useState([]);
   const [splitArrays, setsplitArrays] = useState();
+  const [mainFlag, setmainFlag] = useState(false);
 
   const splitArray = (answerMap) => {
     let arrayFinal = {};
@@ -79,25 +81,30 @@ function Textcontainer({ data, actualText }) {
   //value fetcher
 
   const valueFetcher = (id) => {
-    let stringValue = "";
-    const selected = answerMap.map((element) => {
-      if (element[0].id === id) {
-        stringValue = element[0].value;
-      }
-    });
+    const valueused = splitArrays;
+    const textLength = actualText.split(" ");
 
-    return stringValue;
+    const finalData = textLength.map((element, index) => {
+      return valueused[index].filter((element) => {
+        return element.id === id;
+      });
+    });
+    return finalData[0].value;
   };
 
   //flag indicator fetcher
 
-  const flagFetcher = (id) => {
-    const selectedFlag = answerMap.filter((element) => {
-      console.log(element[0].flag);
-      return element[0].id === id;
+  const allCorrectCheck = () => {
+    const valueused = splitArrays;
+    const textLength = actualText.split(" ");
+
+    const finalData = textLength.map((element, index) => {
+      return valueused[index].filter((element) => {
+        return element.flag === false;
+      });
     });
 
-    return selectedFlag[0].flag;
+    return finalData.length === 0 && setmainFlag(true);
   };
 
   const functionFinalForm = () => {
@@ -184,7 +191,7 @@ function Textcontainer({ data, actualText }) {
         );
       }
     });
-
+    allCorrectCheck();
     return displayMain;
   };
 
@@ -193,13 +200,14 @@ function Textcontainer({ data, actualText }) {
 
     setsplitArrays(splitArray(answerObject(actualText)));
 
-    console.log(actualText);
+    console.log(answerObject(actualText));
   }, []);
 
   return (
     <>
       <div className="text-container__main">
         {functionFinalForm(splitArray(answerObject(actualText)))}
+        <div className="text-container__button">{mainFlag && <Next />}</div>
       </div>
     </>
   );

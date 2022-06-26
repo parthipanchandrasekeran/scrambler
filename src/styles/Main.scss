@@ -105,6 +105,10 @@ $space-yellow: #ffb74d;
     display: flex;
     width: 100%;
   }
+
+  &__button {
+    margin-top: 20px;
+  }
 }
 
 input {
@@ -113,5 +117,13 @@ input {
   margin: 0 5px;
   text-align: center;
   background-color: $background-main;
+  border: none;
+}
+
+.nextbutton-main {
+  height: 40px;
+  width: 100px;
+  background-color: $correct-color;
+  font-family: "OpenSans-Light";
   border: none;
 }
