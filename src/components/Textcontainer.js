@@ -7,7 +7,7 @@ let mainCount = 0;
 function Textcontainer({ data, actualText }) {
   const [input, setInput] = useState("");
   const [answerMap, setanswerMap] = useState([]);
-  const [entryCount, setentryCount] = useState(0);
+  const [splitArrays, setsplitArrays] = useState();
 
   const splitArray = (answerMap) => {
     let arrayFinal = {};
@@ -22,13 +22,10 @@ function Textcontainer({ data, actualText }) {
       } else {
         arrayFinal[count].push(element[0]);
 
-        console.log("s");
-
         count = count + 1;
       }
     });
-    console.log(arrayFinal);
-    arrayFinal = {};
+    return arrayFinal;
   };
 
   //function to return max length of the word in an array of words - pass the sentence
@@ -160,26 +157,49 @@ function Textcontainer({ data, actualText }) {
     });
   };
 
-  const functionFinalForm = (objarray) => {
-    const length = actualText.length - 1;
-
-    for (let i = 0; i <= length; i++) {
-      objarray[i].map((element) => {
-        if (element.answer !== " ") {
-          return <input>{element.answer}</input>;
-        }
+  const functionFinalForm = () => {
+    const arrayref = () => {
+      return actualText.split(" ").map((e) => {
+        return e;
       });
-    }
+    };
+    const length = actualText.length - 1;
+    console.log(splitArrays);
+    const value = arrayref();
+    const displayMain = value.map((elements, index) => {
+      return (
+        <div>
+          {splitArrays[index].map((element) => {
+            console.log(element);
+            if (element.answer !== " ") {
+              return (
+                <div>
+                  <input value={element.answer}></input>
+                </div>
+              );
+            } else {
+              return <input value={element.answer}></input>;
+            }
+          })}
+        </div>
+      );
+    });
+
+    return displayMain;
   };
 
   useEffect(() => {
     setanswerMap(answerObject(actualText));
-    splitArray(answerObject(actualText));
+
+    setsplitArrays(splitArray(answerObject(actualText)));
   }, []);
 
   return (
     <>
       <div className="text-container__main">{textDisplayMain}</div>
+      <div className="display">
+        {functionFinalForm(splitArray(answerObject(actualText)))}
+      </div>
     </>
   );
 }

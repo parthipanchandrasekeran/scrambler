@@ -76,6 +76,7 @@ export default function Main() {
     return sentence.join(" ");
   };
 
+  console.log(actualText);
   return (
     <div className="word-main">
       <div className="word-main__sub">
