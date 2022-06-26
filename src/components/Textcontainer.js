@@ -3,7 +3,7 @@ import "../styles/Main.scss";
 import { useState, useEffect } from "react";
 import Next from "./Next";
 
-function Textcontainer({ data, actualText }) {
+function Textcontainer({ actualText, buttonPress, nextClick }) {
   const [answerMap, setanswerMap] = useState([]);
   const [splitArrays, setsplitArrays] = useState();
   const [mainFlag, setmainFlag] = useState(false);
@@ -73,6 +73,7 @@ function Textcontainer({ data, actualText }) {
     setsplitArrays(finalData);
     if (allCorrectCheck(finalData)) {
       setmainFlag(true);
+      buttonPress();
     }
   };
 
@@ -204,6 +205,7 @@ function Textcontainer({ data, actualText }) {
     setanswerMap(answerObject(actualText));
 
     setsplitArrays(splitArray(answerObject(actualText)));
+    console.log(actualText);
   }, []);
 
   /*useEffect(() => {
@@ -215,8 +217,9 @@ function Textcontainer({ data, actualText }) {
   return (
     <>
       <div className="text-container__main">
-        {functionFinalForm(splitArray(answerObject(actualText)))}
-        <div className="text-container__button">{mainFlag && <Next />}</div>
+        <div className="text-container__button">
+          {mainFlag && <Next nextClick={nextClick} />}
+        </div>
       </div>
     </>
   );

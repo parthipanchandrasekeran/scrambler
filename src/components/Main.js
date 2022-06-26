@@ -7,13 +7,15 @@ const URL = "https://api.hatchways.io/assessment/sentences/";
 
 export default function Main() {
   const [data, setData] = useState("");
+  const [score, setScore] = useState(0);
   const [actualText, setActualText] = useState("");
 
   useEffect(() => {
-    const sentenceNumber = 1;
+    const scoretoUse = Number(score) + 1;
     axios
-      .get(URL + sentenceNumber)
+      .get(URL + scoretoUse)
       .then((res) => {
+        console.log(URL + scoretoUse);
         setData(wordSorter(res.data.data.sentence));
         setActualText(res.data.data.sentence);
       })
@@ -21,6 +23,25 @@ export default function Main() {
         console.error(er);
       });
   }, []);
+
+  const buttonPress = () => {
+    setScore(score + 1);
+
+    console.log(score + 1);
+  };
+
+  const nextClick = () => {
+    const scoretoUse = Number(score) + 1;
+    axios
+      .get(URL + scoretoUse)
+      .then((res) => {
+        setData(wordSorter(res.data.data.sentence));
+        setActualText(res.data.data.sentence);
+      })
+      .catch((er) => {
+        console.error(er);
+      });
+  };
 
   const randomiser = (array) => {
     let shuffled = array
@@ -91,9 +112,13 @@ export default function Main() {
           </p>
         </section>
 
-        <h2 className="word-main__score-text">Score:0</h2>
+        <h2 className="word-main__score-text">Score:{score}</h2>
       </div>
-      <Textcontainer data={data} actualText={actualText} />
+      <Textcontainer
+        actualText={actualText}
+        buttonPress={buttonPress}
+        nextClick={nextClick}
+      />
     </div>
   );
 }
