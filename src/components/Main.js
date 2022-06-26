@@ -16,7 +16,6 @@ export default function Main() {
       .then((res) => {
         setData(wordSorter(res.data.data.sentence));
         setActualText(res.data.data.sentence);
-        console.log(data);
       })
       .catch((er) => {
         console.error(er);
