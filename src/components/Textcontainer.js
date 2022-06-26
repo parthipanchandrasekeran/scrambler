@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Next from "./Next";
 
 function Textcontainer({ data, actualText }) {
-  const [input, setInput] = useState("");
   const [answerMap, setanswerMap] = useState([]);
   const [splitArrays, setsplitArrays] = useState();
   const [mainFlag, setmainFlag] = useState(false);
@@ -55,11 +54,9 @@ function Textcontainer({ data, actualText }) {
     const textLength = actualText.split(" ");
 
     const finalData = textLength.map((element, index) => {
-      console.log(valueused[index]);
       return valueused[index].map((element) => {
         if (element.id === id) {
           const updatedFlag = element.answer === text ? true : false;
-          console.log(updatedFlag);
 
           return {
             id: id,
@@ -73,9 +70,10 @@ function Textcontainer({ data, actualText }) {
       });
     });
 
-    // setanswerMap(finalData);
-    console.log(finalData);
     setsplitArrays(finalData);
+    if (allCorrectCheck(finalData)) {
+      setmainFlag(true);
+    }
   };
 
   //value fetcher
@@ -94,7 +92,7 @@ function Textcontainer({ data, actualText }) {
 
   //flag indicator fetcher
 
-  const allCorrectCheck = () => {
+  const allCorrectCheck = (splitArrays) => {
     const valueused = splitArrays;
     const textLength = actualText.split(" ");
 
@@ -104,7 +102,14 @@ function Textcontainer({ data, actualText }) {
       });
     });
 
-    return finalData.length === 0 && setmainFlag(true);
+    const flag = finalData.every((data) => {
+      return data.length === 0;
+    });
+
+    console.log(flag);
+    console.log(finalData);
+
+    return flag;
   };
 
   const functionFinalForm = () => {
@@ -191,7 +196,7 @@ function Textcontainer({ data, actualText }) {
         );
       }
     });
-    allCorrectCheck();
+
     return displayMain;
   };
 
@@ -199,9 +204,13 @@ function Textcontainer({ data, actualText }) {
     setanswerMap(answerObject(actualText));
 
     setsplitArrays(splitArray(answerObject(actualText)));
-
-    console.log(answerObject(actualText));
   }, []);
+
+  /*useEffect(() => {
+    allCorrectCheck();
+  }, [mainFlag]);*/
+
+  //
 
   return (
     <>
