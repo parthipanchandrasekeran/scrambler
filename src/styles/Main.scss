@@ -36,6 +36,7 @@ $space-yellow: #ffb74d;
 .word-main {
   background-color: $background-main;
   padding: 50px;
+  height: 100vh;
   &__text {
     font-family: "OpenSans-Medium";
 
@@ -126,4 +127,23 @@ input {
   background-color: $correct-color;
   font-family: "OpenSans-Light";
   border: none;
+}
+
+.win {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  margin-top: 25%;
+
+  &__main {
+    background-color: white;
+    width: 60%;
+    border-radius: 10px;
+  }
+  &__heading {
+    text-align: center;
+    padding: 20px;
+    font-family: "OpenSans-Regular";
+  }
 }

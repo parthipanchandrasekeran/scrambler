@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Main.scss";
 import Textcontainer from "./Textcontainer";
+import Win from "./Win";
 
 const URL = "https://api.hatchways.io/assessment/sentences/";
 
@@ -9,13 +10,13 @@ export default function Main() {
   const [data, setData] = useState("");
   const [score, setScore] = useState(0);
   const [actualText, setActualText] = useState("");
+  const [winnerFlag, setwinnerFlag] = useState(false);
 
   useEffect(() => {
     const scoretoUse = Number(score) + 1;
     axios
       .get(URL + scoretoUse)
       .then((res) => {
-        console.log(URL + scoretoUse);
         setData(wordSorter(res.data.data.sentence));
         setActualText(res.data.data.sentence);
       })
@@ -26,21 +27,25 @@ export default function Main() {
 
   const buttonPress = () => {
     setScore(score + 1);
-
-    console.log(score + 1);
   };
 
   const nextClick = () => {
     const scoretoUse = Number(score) + 1;
-    axios
-      .get(URL + scoretoUse)
-      .then((res) => {
-        setData(wordSorter(res.data.data.sentence));
-        setActualText(res.data.data.sentence);
-      })
-      .catch((er) => {
-        console.error(er);
-      });
+
+    if (score < 10) {
+      axios
+        .get(URL + scoretoUse)
+        .then((res) => {
+          setData(wordSorter(res.data.data.sentence));
+          setActualText(res.data.data.sentence);
+          setwinnerFlag(false);
+        })
+        .catch((er) => {
+          console.error(er);
+        });
+    } else {
+      setwinnerFlag(true);
+    }
   };
 
   const randomiser = (array) => {
@@ -100,7 +105,13 @@ export default function Main() {
 
   return (
     <div className="word-main">
-      <div className="word-main__sub">
+      {winnerFlag && <Win />}
+      <div
+        className="word-main__sub"
+        style={{
+          display: winnerFlag && "none",
+        }}
+      >
         <h1 className="word-main__text" id="scrambled-word">
           {data}
         </h1>
@@ -115,11 +126,17 @@ export default function Main() {
 
         <h2 className="word-main__score-text">Score:{score}</h2>
       </div>
-      <Textcontainer
-        actualtext={actualText}
-        buttonPress={buttonPress}
-        nextClick={nextClick}
-      />
+      <div
+        style={{
+          display: winnerFlag && "none",
+        }}
+      >
+        <Textcontainer
+          actualtext={actualText}
+          buttonPress={buttonPress}
+          nextClick={nextClick}
+        />
+      </div>
     </div>
   );
 }
