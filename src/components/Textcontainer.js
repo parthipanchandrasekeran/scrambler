@@ -3,10 +3,12 @@ import "../styles/Main.scss";
 import { useState, useEffect } from "react";
 import Next from "./Next";
 
-function Textcontainer({ actualText, buttonPress, nextClick }) {
+function Textcontainer({ actualtext, buttonPress, nextClick }) {
   const [answerMap, setanswerMap] = useState([]);
   const [splitArrays, setsplitArrays] = useState();
   const [mainFlag, setmainFlag] = useState(false);
+  const [actualText, setActualtext] = useState("");
+  const [info, setInfo] = useState([]);
 
   const splitArray = (answerMap) => {
     let arrayFinal = {};
@@ -24,6 +26,7 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
         count = count + 1;
       }
     });
+
     return arrayFinal;
   };
 
@@ -49,7 +52,7 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
 
   const updateValue = (id, text) => {
     const valueused = splitArrays;
-    console.log(actualText);
+    //console.log(actualText);
 
     const textLength = actualText.split(" ");
 
@@ -80,14 +83,14 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
   //value fetcher
 
   const valueFetcher = (id) => {
-    const valueused = splitArrays;
     const textLength = actualText.split(" ");
 
     const finalData = textLength.map((element, index) => {
-      return valueused[index].filter((element) => {
+      return splitArrays[index].filter((element) => {
         return element.id === id;
       });
     });
+    console.log(info);
     return finalData[0].value;
   };
 
@@ -107,9 +110,6 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
       return data.length === 0;
     });
 
-    console.log(flag);
-    console.log(finalData);
-
     return flag;
   };
 
@@ -121,22 +121,24 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
     };
     const length = actualText.length - 1;
 
-    const value = arrayref();
+    const value = arrayref(); //[I,'LOV,]
     const displayMain = value.map((elements, index) => {
       if (index < value.length) {
         return (
-          <div className="text-container__no-match-main">
+          <div key={index} className="text-container__no-match-main">
             {splitArrays[index].map((element) => {
               if (element.answer !== " ") {
                 return (
                   <div className="text-container__end-section">
                     <input
+                      name={element.id}
                       value={valueFetcher(element.id)}
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
                       onChange={(e) => {
                         updateValue(element.id, e.target.value);
+                        setInfo({ ...info, [e.target.name]: e.target.value });
                       }}
                     ></input>
                   </div>
@@ -144,6 +146,7 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
               } else {
                 return (
                   <input
+                    name={element.id}
                     className="text-container__end-section-sub"
                     value={valueFetcher(element.id)}
                     style={{
@@ -151,6 +154,7 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
                     }}
                     onChange={(e) => {
                       updateValue(element.id, e.target.value);
+                      setInfo({ ...info, [e.target.name]: e.target.value });
                     }}
                   ></input>
                 );
@@ -160,33 +164,37 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
         );
       } else {
         return (
-          <div className="text-container__match-main">
+          <div key={index} className="text-container__match-main">
             {splitArrays[index].map((element) => {
               console.log(element);
               if (element.answer !== " ") {
                 return (
                   <div>
                     <input
+                      name={element.id}
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
                       value={valueFetcher(element.id)}
                       onChange={(e) => {
                         updateValue(element.id, e.target.value);
+                        setInfo({ ...info, [e.target.name]: e.target.value });
                       }}
                     ></input>
                   </div>
                 );
               } else {
                 return (
-                  <div className="text-container__matched-section">
+                  <div key={index} className="text-container__matched-section">
                     <input
+                      name={element.id}
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
                       value={valueFetcher(element.id)}
                       onChange={(e) => {
                         updateValue(element.id, e.target.value);
+                        setInfo({ ...info, [e.target.name]: e.target.value });
                       }}
                     ></input>
                   </div>
@@ -202,11 +210,13 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
   };
 
   useEffect(() => {
-    setanswerMap(answerObject(actualText));
+    setanswerMap(answerObject(actualtext));
+    setActualtext(actualtext);
 
-    setsplitArrays(splitArray(answerObject(actualText)));
-    console.log(actualText);
-  }, []);
+    setsplitArrays(splitArray(answerObject(actualtext)));
+    console.log(actualtext);
+    console.log(answerMap);
+  }, [actualtext]);
 
   /*useEffect(() => {
     allCorrectCheck();
@@ -217,6 +227,7 @@ function Textcontainer({ actualText, buttonPress, nextClick }) {
   return (
     <>
       <div className="text-container__main">
+        {functionFinalForm(splitArray(answerObject(actualText)))}
         <div className="text-container__button">
           {mainFlag && <Next nextClick={nextClick} />}
         </div>

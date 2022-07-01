@@ -76,11 +76,12 @@ export default function Main() {
       }
     });
 
-    while (word === temp) {
+    /*  while (word === temp) {
       return wordSorterSingle(word);
-    }
-
-    return temp;
+    }*/
+    const update = temp;
+    temp = "";
+    return update;
   };
 
   const wordSorter = (text) => {
@@ -115,7 +116,7 @@ export default function Main() {
         <h2 className="word-main__score-text">Score:{score}</h2>
       </div>
       <Textcontainer
-        actualText={actualText}
+        actualtext={actualText}
         buttonPress={buttonPress}
         nextClick={nextClick}
       />
