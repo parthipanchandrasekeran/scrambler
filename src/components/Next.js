@@ -1,10 +1,12 @@
 import React from "react";
 
-function Next({ nextClick }) {
+function Next({ nextClick, clearValue, flagchange }) {
   return (
     <button
       onClick={() => {
         nextClick();
+        clearValue();
+        flagchange();
       }}
       className="nextbutton-main"
     >

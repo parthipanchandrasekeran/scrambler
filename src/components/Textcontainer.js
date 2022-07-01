@@ -82,16 +82,8 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
 
   //value fetcher
 
-  const valueFetcher = (id) => {
-    const textLength = actualText.split(" ");
-
-    const finalData = textLength.map((element, index) => {
-      return splitArrays[index].filter((element) => {
-        return element.id === id;
-      });
-    });
-    console.log(info);
-    return finalData[0].value;
+  const flagChange = () => {
+    setmainFlag(false);
   };
 
   //flag indicator fetcher
@@ -132,7 +124,11 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                   <div className="text-container__end-section">
                     <input
                       name={element.id}
-                      value={valueFetcher(element.id)}
+                      value={
+                        //valueFetcher(element.id)
+
+                        info[element.id] ? info[element.id] : ""
+                      }
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
@@ -148,7 +144,11 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                   <input
                     name={element.id}
                     className="text-container__end-section-sub"
-                    value={valueFetcher(element.id)}
+                    value={
+                      //valueFetcher(element.id)
+
+                      info[element.id] ? info[element.id] : ""
+                    }
                     style={{
                       backgroundColor: element.flag && "#4caf50",
                     }}
@@ -175,7 +175,11 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
-                      value={valueFetcher(element.id)}
+                      value={
+                        //valueFetcher(element.id)
+
+                        info[element.id] ? info[element.id] : ""
+                      }
                       onChange={(e) => {
                         updateValue(element.id, e.target.value);
                         setInfo({ ...info, [e.target.name]: e.target.value });
@@ -191,7 +195,11 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
-                      value={valueFetcher(element.id)}
+                      value={
+                        //valueFetcher(element.id)
+
+                        info[element.id] ? info[element.id] : ""
+                      }
                       onChange={(e) => {
                         updateValue(element.id, e.target.value);
                         setInfo({ ...info, [e.target.name]: e.target.value });
@@ -207,6 +215,10 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
     });
 
     return displayMain;
+  };
+
+  const clearValue = () => {
+    setInfo([]);
   };
 
   useEffect(() => {
@@ -229,7 +241,13 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
       <div className="text-container__main">
         {functionFinalForm(splitArray(answerObject(actualText)))}
         <div className="text-container__button">
-          {mainFlag && <Next nextClick={nextClick} />}
+          {mainFlag && (
+            <Next
+              clearValue={clearValue}
+              nextClick={nextClick}
+              flagchange={flagChange}
+            />
+          )}
         </div>
       </div>
     </>
