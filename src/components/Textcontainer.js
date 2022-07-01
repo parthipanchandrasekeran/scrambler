@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Main.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Next from "./Next";
 
 function Textcontainer({ actualtext, buttonPress, nextClick }) {
@@ -9,7 +9,8 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
   const [mainFlag, setmainFlag] = useState(false);
   const [actualText, setActualtext] = useState("");
   const [info, setInfo] = useState([]);
-
+  const idRef = useRef([]);
+  idRef.current = [];
   const splitArray = (answerMap) => {
     let arrayFinal = {};
     let count = 0;
@@ -52,7 +53,9 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
 
   const updateValue = (id, text) => {
     const valueused = splitArrays;
-    //console.log(actualText);
+    const stringvalue = id + 1;
+
+    //const elementInput = document.querySelector('input[name="1"]');
 
     const textLength = actualText.split(" ");
 
@@ -74,10 +77,21 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
     });
 
     setsplitArrays(finalData);
+
+    idRef.current[id + 1].focus();
+
     if (allCorrectCheck(finalData)) {
       setmainFlag(true);
       buttonPress();
     }
+  };
+
+  const addRef = (e) => {
+    if (e && !idRef.current.includes(e)) {
+      idRef.current.push(e);
+    }
+
+    console.log(idRef.current);
   };
 
   //value fetcher
@@ -136,6 +150,7 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                         updateValue(element.id, e.target.value);
                         setInfo({ ...info, [e.target.name]: e.target.value });
                       }}
+                      ref={addRef}
                     ></input>
                   </div>
                 );
@@ -156,6 +171,7 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                       updateValue(element.id, e.target.value);
                       setInfo({ ...info, [e.target.name]: e.target.value });
                     }}
+                    ref={addRef}
                   ></input>
                 );
               }
@@ -184,6 +200,7 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                         updateValue(element.id, e.target.value);
                         setInfo({ ...info, [e.target.name]: e.target.value });
                       }}
+                      ref={addRef}
                     ></input>
                   </div>
                 );
@@ -204,6 +221,7 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                         updateValue(element.id, e.target.value);
                         setInfo({ ...info, [e.target.name]: e.target.value });
                       }}
+                      ref={addRef}
                     ></input>
                   </div>
                 );
@@ -226,7 +244,7 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
     setActualtext(actualtext);
 
     setsplitArrays(splitArray(answerObject(actualtext)));
-    console.log(actualtext);
+    console.log("actualtext");
     console.log(answerMap);
   }, [actualtext]);
 
