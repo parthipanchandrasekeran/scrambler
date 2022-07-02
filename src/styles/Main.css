@@ -19,16 +19,16 @@
 }
 .word-main {
   background-color: #e1e1e1;
-  padding: 50px;
+  padding: 5% 30%;
   height: 100vh;
 }
 .word-main__text {
-  font-family: "OpenSans-Medium";
+  font-family: "OpenSans-Light";
   width: 100%;
   padding-top: 50px;
 }
 .word-main__sub {
-  margin: 10px;
+  margin: 10px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,7 +44,7 @@
   width: 100%;
 }
 .word-main__score-text {
-  font-family: "OpenSans-Bold";
+  font-family: "OpenSans-Light";
   width: 100%;
   padding: 20px 0;
 }
@@ -58,6 +58,7 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
 }
 .text-container__matched-section {
   width: 100%;
@@ -95,6 +96,7 @@ input {
   text-align: center;
   background-color: #e1e1e1;
   border: none;
+  font-family: "OpenSans-Light";
 }
 
 .nextbutton-main {

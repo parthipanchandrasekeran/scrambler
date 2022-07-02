@@ -35,16 +35,16 @@ $space-yellow: #ffb74d;
 
 .word-main {
   background-color: $background-main;
-  padding: 50px;
+  padding: 5% 30%;
   height: 100vh;
   &__text {
-    font-family: "OpenSans-Medium";
+    font-family: "OpenSans-Light";
 
     width: 100%;
     padding-top: 50px;
   }
   &__sub {
-    margin: 10px;
+    margin: 10px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,7 +64,7 @@ $space-yellow: #ffb74d;
   }
 
   &__score-text {
-    font-family: "OpenSans-Bold";
+    font-family: "OpenSans-Light";
 
     width: 100%;
     padding: 20px 0;
@@ -77,8 +77,10 @@ $space-yellow: #ffb74d;
     height: max-content;
     background-color: white;
     padding: 30px;
+
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
   }
 
   &__matched-section {
@@ -121,6 +123,7 @@ input {
   text-align: center;
   background-color: $background-main;
   border: none;
+  font-family: "OpenSans-Light";
 }
 
 .nextbutton-main {

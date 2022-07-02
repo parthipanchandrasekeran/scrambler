@@ -125,7 +125,7 @@ export default function Main() {
           </p>
         </section>
 
-        <h2 className="word-main__score-text">Score:{score}</h2>
+        <h2 className="word-main__score-text">Score:&nbsp;{score}</h2>
       </div>
       <div
         style={{
