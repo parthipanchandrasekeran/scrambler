@@ -13,16 +13,18 @@ export default function Main() {
   const [winnerFlag, setwinnerFlag] = useState(false);
 
   useEffect(() => {
-    const scoretoUse = Number(score) + 1;
-    axios
-      .get(URL + scoretoUse)
-      .then((res) => {
-        setData(wordSorter(res.data.data.sentence));
-        setActualText(res.data.data.sentence);
-      })
-      .catch((er) => {
-        console.error(er);
-      });
+    if (score < 10) {
+      const scoretoUse = Number(score) + 1;
+      axios
+        .get(URL + scoretoUse)
+        .then((res) => {
+          setData(wordSorter(res.data.data.sentence.toLowerCase()));
+          setActualText(res.data.data.sentence.toLowerCase());
+        })
+        .catch((er) => {
+          console.error(er);
+        });
+    }
   }, []);
 
   const buttonPress = () => {
@@ -30,15 +32,17 @@ export default function Main() {
   };
 
   const nextClick = () => {
-    const scoreupdated = Number(score) + 2;
+    buttonPress();
 
-    if (score < 10) {
+    const scoreupdated = score + 2;
+
+    if (score < 9) {
       axios
         .get(URL + scoreupdated)
         .then((res) => {
-          setData(wordSorter(res.data.data.sentence));
-          setActualText(res.data.data.sentence);
-          buttonPress();
+          setData(wordSorter(res.data.data.sentence.toLowerCase()));
+          setActualText(res.data.data.sentence.toLowerCase());
+
           setwinnerFlag(false);
         })
         .catch((er) => {

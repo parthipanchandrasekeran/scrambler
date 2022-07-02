@@ -93,7 +93,7 @@ function Textcontainer({ actualtext, nextClick }) {
     }
   };
 
-  //value fetcher
+  //main flag change loads the modal
 
   const flagChange = () => {
     setmainFlag(false);
@@ -140,11 +140,7 @@ function Textcontainer({ actualtext, nextClick }) {
                     <div className="text-container__end-section">
                       <input
                         name={element.id}
-                        value={
-                          //valueFetcher(element.id)
-
-                          info[element.id] ? info[element.id] : ""
-                        }
+                        value={info[element.id] ? info[element.id] : ""}
                         style={{
                           backgroundColor: element.flag && "#4caf50",
                         }}
@@ -161,11 +157,7 @@ function Textcontainer({ actualtext, nextClick }) {
                     <input
                       name={element.id}
                       className="text-container__end-section-sub"
-                      value={
-                        //valueFetcher(element.id)
-
-                        info[element.id] ? info[element.id] : ""
-                      }
+                      value={info[element.id] ? info[element.id] : ""}
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
