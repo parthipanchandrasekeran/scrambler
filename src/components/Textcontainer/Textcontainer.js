@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/Main.scss";
+import "./Textcontainer.scss";
 import { useState, useEffect, useRef } from "react";
-import Next from "./Next";
+import Next from "../NextButton/NextButton";
 
 function Textcontainer({ actualtext, nextClick }) {
   const [answerMap, setanswerMap] = useState([]);
@@ -133,11 +133,17 @@ function Textcontainer({ actualtext, nextClick }) {
       const displayMain = value.map((elements, index) => {
         if (index < value.length) {
           return (
-            <div key={index} className="text-container__no-match-main">
-              {splitArrays[index].map((element) => {
+            <div
+              key={index + elements}
+              className="text-container__no-match-main"
+            >
+              {splitArrays[index].map((element, index) => {
                 if (element.answer !== " ") {
                   return (
-                    <div className="text-container__end-section">
+                    <div
+                      key={index + element}
+                      className="text-container__end-section"
+                    >
                       <input
                         name={element.id}
                         value={info[element.id] ? info[element.id] : ""}
@@ -155,6 +161,7 @@ function Textcontainer({ actualtext, nextClick }) {
                 } else {
                   return (
                     <input
+                      key={index + element}
                       name={element.id}
                       className="text-container__end-section-sub"
                       value={info[element.id] ? info[element.id] : ""}
@@ -174,12 +181,11 @@ function Textcontainer({ actualtext, nextClick }) {
           );
         } else {
           return (
-            <div key={index} className="text-container__match-main">
-              {splitArrays[index].map((element) => {
-                console.log(element);
+            <div key={index + elements} className="text-container__match-main">
+              {splitArrays[index].map((element, index) => {
                 if (element.answer !== " ") {
                   return (
-                    <div>
+                    <div key={index + element}>
                       <input
                         name={element.id}
                         style={{
@@ -201,7 +207,7 @@ function Textcontainer({ actualtext, nextClick }) {
                 } else {
                   return (
                     <div
-                      key={index}
+                      key={index + element}
                       className="text-container__matched-section"
                     >
                       <input
@@ -236,7 +242,6 @@ function Textcontainer({ actualtext, nextClick }) {
   useEffect(() => {
     setanswerMap(answerObject(actualtext));
     setActualtext(actualtext);
-
     setsplitArrays(splitArray(answerObject(actualtext)));
     idRef.current[0].focus();
   }, [actualtext]);
@@ -245,6 +250,7 @@ function Textcontainer({ actualtext, nextClick }) {
     <>
       <div className="text-container__main">
         {functionFinalForm(splitArray(answerObject(actualText)))}
+
         <div className="text-container__button">
           {mainFlag && (
             <Next

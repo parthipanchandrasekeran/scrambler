@@ -1,6 +1,7 @@
 import React from "react";
+import "./Winmodal.scss";
 
-export default function Win() {
+export default function Winmodal() {
   return (
     <div className="win">
       <div className="win__main">

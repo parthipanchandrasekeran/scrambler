@@ -1,0 +1,39 @@
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+//Color
+
+$background-main: #e1e1e1;
+$correct-color: #4caf50;
+$next-color: #388e3c;
+$space-yellow: #ffb74d;
+
+//font
+
+@font-face {
+  font-family: "OpenSans-Bold";
+  src: local("OpenSans-Bold"),
+    url("../../../src/assets/font/OpenSans/OpenSans-Bold.ttf")
+      format("truetype");
+  font-family: "OpenSans-BoldItalic";
+  src: local("OpenSans-BoldItalic"),
+    url("../../../src/assets/font/OpenSans/OpenSans-BoldItalic.ttf")
+      format("truetype");
+  font-family: "OpenSans-Light";
+  src: local("OpenSans-Light"),
+    url("../../../src/assets/font/OpenSans/OpenSans-Light.ttf")
+      format("truetype");
+
+  src: local("OpenSans-Medium"),
+    url("../../../src/assets/font/OpenSans/OpenSans-Medium.ttf")
+      format("truetype");
+
+  src: local("OpenSans-Regular"),
+    url("../../../src/assets/font/OpenSans/OpenSans-Regular.ttf")
+      format("truetype");
+}

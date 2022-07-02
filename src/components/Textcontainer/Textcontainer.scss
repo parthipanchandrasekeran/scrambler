@@ -1,0 +1,56 @@
+@import "../../styles/partials/global.scss";
+
+.text-container {
+  &__main {
+    width: 100%;
+    height: max-content;
+    background-color: white;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+  }
+
+  &__matched-section {
+    width: 100%;
+
+    margin-left: 0;
+    margin-right: 10px;
+    padding: 5px 0;
+  }
+  &__end-section {
+    width: 100%;
+    margin: 0 10px;
+
+    &-sub {
+      background-color: $space-yellow;
+      height: 40px;
+      border: none;
+    }
+  }
+  &__no-match-main {
+    display: flex;
+    margin: 10px 0;
+  }
+  &__match-main {
+    display: flex;
+    width: 100%;
+  }
+
+  &__button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+input {
+  height: 40px;
+  width: 100%;
+  margin: 0 5px;
+  text-align: center;
+  background-color: $background-main;
+  border: none;
+  font-family: "OpenSans-Light";
+}

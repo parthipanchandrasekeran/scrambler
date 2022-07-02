@@ -1,0 +1,35 @@
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "OpenSans-Bold";
+  src: local("OpenSans-Bold"), url("../../../src/assets/font/OpenSans/OpenSans-Bold.ttf") format("truetype");
+  font-family: "OpenSans-BoldItalic";
+  src: local("OpenSans-BoldItalic"), url("../../../src/assets/font/OpenSans/OpenSans-BoldItalic.ttf") format("truetype");
+  font-family: "OpenSans-Light";
+  src: local("OpenSans-Light"), url("../../../src/assets/font/OpenSans/OpenSans-Light.ttf") format("truetype");
+  src: local("OpenSans-Medium"), url("../../../src/assets/font/OpenSans/OpenSans-Medium.ttf") format("truetype");
+  src: local("OpenSans-Regular"), url("../../../src/assets/font/OpenSans/OpenSans-Regular.ttf") format("truetype");
+}
+.win {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  margin-top: 25%;
+}
+.win__main {
+  background-color: white;
+  width: 60%;
+  border-radius: 10px;
+}
+.win__heading {
+  text-align: center;
+  padding: 20px;
+  font-family: "OpenSans-Regular";
+}/*# sourceMappingURL=Winmodal.css.map */

@@ -1,0 +1,9 @@
+@import "../../styles/partials/global.scss";
+
+.nextbutton-main {
+  height: 40px;
+  width: 100px;
+  background-color: $correct-color;
+  font-family: "OpenSans-Light";
+  border: none;
+}

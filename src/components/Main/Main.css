@@ -1,0 +1,49 @@
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "OpenSans-Bold";
+  src: local("OpenSans-Bold"), url("../../../src/assets/font/OpenSans/OpenSans-Bold.ttf") format("truetype");
+  font-family: "OpenSans-BoldItalic";
+  src: local("OpenSans-BoldItalic"), url("../../../src/assets/font/OpenSans/OpenSans-BoldItalic.ttf") format("truetype");
+  font-family: "OpenSans-Light";
+  src: local("OpenSans-Light"), url("../../../src/assets/font/OpenSans/OpenSans-Light.ttf") format("truetype");
+  src: local("OpenSans-Medium"), url("../../../src/assets/font/OpenSans/OpenSans-Medium.ttf") format("truetype");
+  src: local("OpenSans-Regular"), url("../../../src/assets/font/OpenSans/OpenSans-Regular.ttf") format("truetype");
+}
+.word-main {
+  background-color: #e1e1e1;
+  padding: 5% 30%;
+  height: 100vh;
+}
+.word-main__text {
+  font-family: "OpenSans-Light";
+  width: 100%;
+  padding-top: 50px;
+}
+.word-main__sub {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+}
+.word-main__guess-text, .word-main__clue-text {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: "OpenSans-Light";
+  width: 100%;
+}
+.word-main__score-text {
+  font-family: "OpenSans-Light";
+  width: 100%;
+  padding: 20px 0;
+}/*# sourceMappingURL=Main.css.map */

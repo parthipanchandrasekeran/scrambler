@@ -1,6 +1,7 @@
 import React from "react";
+import "./NextButton.scss";
 
-function Next({ nextClick, clearValue, flagchange }) {
+function NextButton({ nextClick, clearValue, flagchange }) {
   return (
     <button
       onClick={() => {
@@ -15,4 +16,4 @@ function Next({ nextClick, clearValue, flagchange }) {
   );
 }
 
-export default Next;
+export default NextButton;

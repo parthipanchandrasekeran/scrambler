@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/Main.scss";
-import Textcontainer from "./Textcontainer";
-import Win from "./Win";
+import "./Main.scss";
+import Textcontainer from "../Textcontainer/Textcontainer";
+import Win from "../Winmodal/Winmodal";
 
 const URL = "https://api.hatchways.io/assessment/sentences/";
 
