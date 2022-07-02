@@ -238,6 +238,7 @@ function Textcontainer({ actualtext, nextClick }) {
     setActualtext(actualtext);
 
     setsplitArrays(splitArray(answerObject(actualtext)));
+    idRef.current[0].focus();
   }, [actualtext]);
 
   return (
