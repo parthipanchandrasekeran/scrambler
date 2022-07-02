@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./Textcontainer.scss";
 import { useState, useEffect, useRef } from "react";
 import Next from "../NextButton/NextButton";
@@ -9,6 +9,7 @@ function Textcontainer({ actualtext, nextClick }) {
   const [mainFlag, setmainFlag] = useState(false);
   const [actualText, setActualtext] = useState("");
   const [info, setInfo] = useState([]);
+
   const idRef = useRef([]);
   idRef.current = [];
   const splitArray = (answerMap) => {
@@ -243,14 +244,18 @@ function Textcontainer({ actualtext, nextClick }) {
     setanswerMap(answerObject(actualtext));
     setActualtext(actualtext);
     setsplitArrays(splitArray(answerObject(actualtext)));
-    idRef.current[0].focus();
+    if (idRef.current[0] === undefined) {
+      console.log(idRef.current);
+    } else {
+      console.log(idRef.current);
+      idRef.current[0].focus();
+    }
   }, [actualtext]);
 
   return (
     <>
       <div className="text-container__main">
         {functionFinalForm(splitArray(answerObject(actualText)))}
-
         <div className="text-container__button">
           {mainFlag && (
             <Next
