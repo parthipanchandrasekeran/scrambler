@@ -3,7 +3,7 @@ import "../styles/Main.scss";
 import { useState, useEffect, useRef } from "react";
 import Next from "./Next";
 
-function Textcontainer({ actualtext, buttonPress, nextClick }) {
+function Textcontainer({ actualtext, nextClick }) {
   const [answerMap, setanswerMap] = useState([]);
   const [splitArrays, setsplitArrays] = useState();
   const [mainFlag, setmainFlag] = useState(false);
@@ -88,7 +88,6 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
 
     if (allCorrectCheck(finalData)) {
       setmainFlag(true);
-      buttonPress();
     }
   };
 
@@ -216,11 +215,7 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
                       style={{
                         backgroundColor: element.flag && "#4caf50",
                       }}
-                      value={
-                        //valueFetcher(element.id)
-
-                        info[element.id] ? info[element.id] : ""
-                      }
+                      value={info[element.id] ? info[element.id] : ""}
                       onChange={(e) => {
                         updateValue(element.id, e.target.value);
                         setInfo({ ...info, [e.target.name]: e.target.value });
@@ -248,8 +243,6 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
     setActualtext(actualtext);
 
     setsplitArrays(splitArray(answerObject(actualtext)));
-    console.log(actualtext);
-    console.log(answerMap);
   }, [actualtext]);
 
   return (

@@ -30,14 +30,15 @@ export default function Main() {
   };
 
   const nextClick = () => {
-    const scoretoUse = Number(score) + 1;
+    const scoreupdated = Number(score) + 2;
 
     if (score < 10) {
       axios
-        .get(URL + scoretoUse)
+        .get(URL + scoreupdated)
         .then((res) => {
           setData(wordSorter(res.data.data.sentence));
           setActualText(res.data.data.sentence);
+          buttonPress();
           setwinnerFlag(false);
         })
         .catch((er) => {
@@ -131,11 +132,7 @@ export default function Main() {
           display: winnerFlag && "none",
         }}
       >
-        <Textcontainer
-          actualtext={actualText}
-          buttonPress={buttonPress}
-          nextClick={nextClick}
-        />
+        <Textcontainer actualtext={actualText} nextClick={nextClick} />
       </div>
     </div>
   );
