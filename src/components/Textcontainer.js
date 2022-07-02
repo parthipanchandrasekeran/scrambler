@@ -78,7 +78,13 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
 
     setsplitArrays(finalData);
 
-    idRef.current[id + 1].focus();
+    console.log(finalData);
+
+    if (text !== "") {
+      if (id !== idRef.current.length - 1) {
+        idRef.current[id + 1].focus();
+      }
+    }
 
     if (allCorrectCheck(finalData)) {
       setmainFlag(true);
@@ -90,8 +96,6 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
     if (e && !idRef.current.includes(e)) {
       idRef.current.push(e);
     }
-
-    console.log(idRef.current);
   };
 
   //value fetcher
@@ -127,7 +131,7 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
     };
     const length = actualText.length - 1;
 
-    const value = arrayref(); //[I,'LOV,]
+    const value = arrayref();
     const displayMain = value.map((elements, index) => {
       if (index < value.length) {
         return (
@@ -244,15 +248,9 @@ function Textcontainer({ actualtext, buttonPress, nextClick }) {
     setActualtext(actualtext);
 
     setsplitArrays(splitArray(answerObject(actualtext)));
-    console.log("actualtext");
+    console.log(actualtext);
     console.log(answerMap);
   }, [actualtext]);
-
-  /*useEffect(() => {
-    allCorrectCheck();
-  }, [mainFlag]);*/
-
-  //
 
   return (
     <>
