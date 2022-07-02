@@ -55,8 +55,6 @@ function Textcontainer({ actualtext, nextClick }) {
     const valueused = splitArrays;
     const stringvalue = id + 1;
 
-    //const elementInput = document.querySelector('input[name="1"]');
-
     const textLength = actualText.split(" ");
 
     const finalData = textLength.map((element, index) => {
@@ -77,8 +75,6 @@ function Textcontainer({ actualtext, nextClick }) {
     });
 
     setsplitArrays(finalData);
-
-    console.log(finalData);
 
     if (text !== "") {
       if (id !== idRef.current.length - 1) {
@@ -123,115 +119,122 @@ function Textcontainer({ actualtext, nextClick }) {
   };
 
   const functionFinalForm = () => {
-    const arrayref = () => {
-      return actualText.split(" ").map((e) => {
-        return e;
+    if (!actualText) {
+      return <h1>Loading...</h1>;
+    } else {
+      const arrayref = () => {
+        return actualText.split(" ").map((e) => {
+          return e;
+        });
+      };
+      const length = actualText.length - 1;
+
+      const value = arrayref();
+      const displayMain = value.map((elements, index) => {
+        if (index < value.length) {
+          return (
+            <div key={index} className="text-container__no-match-main">
+              {splitArrays[index].map((element) => {
+                if (element.answer !== " ") {
+                  return (
+                    <div className="text-container__end-section">
+                      <input
+                        name={element.id}
+                        value={
+                          //valueFetcher(element.id)
+
+                          info[element.id] ? info[element.id] : ""
+                        }
+                        style={{
+                          backgroundColor: element.flag && "#4caf50",
+                        }}
+                        onChange={(e) => {
+                          updateValue(element.id, e.target.value);
+                          setInfo({ ...info, [e.target.name]: e.target.value });
+                        }}
+                        ref={addRef}
+                      ></input>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <input
+                      name={element.id}
+                      className="text-container__end-section-sub"
+                      value={
+                        //valueFetcher(element.id)
+
+                        info[element.id] ? info[element.id] : ""
+                      }
+                      style={{
+                        backgroundColor: element.flag && "#4caf50",
+                      }}
+                      onChange={(e) => {
+                        updateValue(element.id, e.target.value);
+                        setInfo({ ...info, [e.target.name]: e.target.value });
+                      }}
+                      ref={addRef}
+                    ></input>
+                  );
+                }
+              })}
+            </div>
+          );
+        } else {
+          return (
+            <div key={index} className="text-container__match-main">
+              {splitArrays[index].map((element) => {
+                console.log(element);
+                if (element.answer !== " ") {
+                  return (
+                    <div>
+                      <input
+                        name={element.id}
+                        style={{
+                          backgroundColor: element.flag && "#4caf50",
+                        }}
+                        value={
+                          //valueFetcher(element.id)
+
+                          info[element.id] ? info[element.id] : ""
+                        }
+                        onChange={(e) => {
+                          updateValue(element.id, e.target.value);
+                          setInfo({ ...info, [e.target.name]: e.target.value });
+                        }}
+                        ref={addRef}
+                      ></input>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={index}
+                      className="text-container__matched-section"
+                    >
+                      <input
+                        name={element.id}
+                        style={{
+                          backgroundColor: element.flag && "#4caf50",
+                        }}
+                        value={info[element.id] ? info[element.id] : ""}
+                        onChange={(e) => {
+                          updateValue(element.id, e.target.value);
+                          setInfo({ ...info, [e.target.name]: e.target.value });
+                        }}
+                        ref={addRef}
+                      ></input>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          );
+        }
       });
-    };
-    const length = actualText.length - 1;
 
-    const value = arrayref();
-    const displayMain = value.map((elements, index) => {
-      if (index < value.length) {
-        return (
-          <div key={index} className="text-container__no-match-main">
-            {splitArrays[index].map((element) => {
-              if (element.answer !== " ") {
-                return (
-                  <div className="text-container__end-section">
-                    <input
-                      name={element.id}
-                      value={
-                        //valueFetcher(element.id)
-
-                        info[element.id] ? info[element.id] : ""
-                      }
-                      style={{
-                        backgroundColor: element.flag && "#4caf50",
-                      }}
-                      onChange={(e) => {
-                        updateValue(element.id, e.target.value);
-                        setInfo({ ...info, [e.target.name]: e.target.value });
-                      }}
-                      ref={addRef}
-                    ></input>
-                  </div>
-                );
-              } else {
-                return (
-                  <input
-                    name={element.id}
-                    className="text-container__end-section-sub"
-                    value={
-                      //valueFetcher(element.id)
-
-                      info[element.id] ? info[element.id] : ""
-                    }
-                    style={{
-                      backgroundColor: element.flag && "#4caf50",
-                    }}
-                    onChange={(e) => {
-                      updateValue(element.id, e.target.value);
-                      setInfo({ ...info, [e.target.name]: e.target.value });
-                    }}
-                    ref={addRef}
-                  ></input>
-                );
-              }
-            })}
-          </div>
-        );
-      } else {
-        return (
-          <div key={index} className="text-container__match-main">
-            {splitArrays[index].map((element) => {
-              console.log(element);
-              if (element.answer !== " ") {
-                return (
-                  <div>
-                    <input
-                      name={element.id}
-                      style={{
-                        backgroundColor: element.flag && "#4caf50",
-                      }}
-                      value={
-                        //valueFetcher(element.id)
-
-                        info[element.id] ? info[element.id] : ""
-                      }
-                      onChange={(e) => {
-                        updateValue(element.id, e.target.value);
-                        setInfo({ ...info, [e.target.name]: e.target.value });
-                      }}
-                      ref={addRef}
-                    ></input>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={index} className="text-container__matched-section">
-                    <input
-                      name={element.id}
-                      style={{
-                        backgroundColor: element.flag && "#4caf50",
-                      }}
-                      value={info[element.id] ? info[element.id] : ""}
-                      onChange={(e) => {
-                        updateValue(element.id, e.target.value);
-                        setInfo({ ...info, [e.target.name]: e.target.value });
-                      }}
-                      ref={addRef}
-                    ></input>
-                  </div>
-                );
-              }
-            })}
-          </div>
-        );
-      }
-    });
-
-    return displayMain;
+      return displayMain;
+    }
   };
 
   const clearValue = () => {
