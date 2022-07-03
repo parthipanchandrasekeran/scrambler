@@ -1,12 +1,12 @@
 import React from "react";
 import "./NextButton.scss";
 
-function NextButton({ nextClick, clearValue, flagchange }) {
+function NextButton({ nextClick, flagchange }) {
   return (
     <button
       onClick={() => {
         nextClick();
-        clearValue();
+
         flagchange();
       }}
       className="nextbutton-main"
