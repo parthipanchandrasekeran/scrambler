@@ -19,6 +19,7 @@ export default function Main() {
       .then((res) => {
         setData(wordSorter(res.data.data.sentence.toLowerCase()));
         setActualText(res.data.data.sentence.toLowerCase());
+        console.log(res.data.data.sentence.toLowerCase());
       })
       .catch((er) => {
         console.error(er);
@@ -33,7 +34,6 @@ export default function Main() {
     buttonPress();
 
     const scoreupdated = score + 2;
-    console.log(URL + scoreupdated);
 
     if (score < 9) {
       axios
@@ -41,6 +41,7 @@ export default function Main() {
         .then((res) => {
           setData(wordSorter(res.data.data.sentence.toLowerCase()));
           setActualText(res.data.data.sentence.toLowerCase());
+          console.log(res.data.data.sentence.toLowerCase());
 
           setwinnerFlag(false);
         })
