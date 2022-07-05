@@ -1,17 +1,26 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-export default function KeyInput({ actualText, splitArrays, updateValue }) {
-  const [info, setInfo] = useState([]);
-
+export default function KeyInput({
+  actualText,
+  splitArrays,
+  updateValue,
+  fetchvalue,
+}) {
   const idRef = useRef([]);
   idRef.current = [];
 
   useEffect(() => {
-    console.log(actualText);
-    idRef.current[0] && idRef.current[0].focus();
+    console.log(idRef.current);
+  }, []);
 
+  useEffect(() => {
+    //idRef.current[0].focus();
+    console.log(idRef.current);
+    //console.log(idRef.current[0]);
+    //idRef.current[0].focus();
     return () => {
-      setInfo([]);
+      //idRef.current = [];
+      console.log("keinput unmount");
     };
   }, [actualText]);
 
@@ -21,142 +30,68 @@ export default function KeyInput({ actualText, splitArrays, updateValue }) {
     }
   };
 
-  const functionFinalForm = (dataUpdated, textUpdate) => {
-    console.log(dataUpdated);
-    if (typeof dataUpdated === "undefined") {
-      return <h1>Loading...</h1>;
-    } else {
-      const length = textUpdate.length - 1;
-
-      const displayMain = textUpdate.split(" ").map((elements, index) => {
-        if (index < textUpdate.split(" ").length) {
-          return (
-            <div
-              key={index + elements}
-              className="text-container__no-match-main"
-            >
-              {dataUpdated &&
-                dataUpdated[index].map((element, index) => {
-                  if (element.answer !== " ") {
-                    return (
-                      <div
-                        key={index + element}
-                        className="text-container__end-section"
-                      >
-                        <input
-                          name={element.id}
-                          value={info[element.id] ? info[element.id] : ""}
-                          style={{
-                            backgroundColor: element.flag && "#4caf50",
-                          }}
-                          onChange={(e) => {
-                            updateValue(element.id, e.target.value);
-                            setInfo({
-                              ...info,
-                              [e.target.name]: e.target.value,
-                            });
-                            idRef.current[
-                              Number(e.currentTarget.name) + 1
-                            ].focus();
-                          }}
-                          ref={addRef}
-                        ></input>
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <input
-                        key={index + element}
-                        name={element.id}
-                        className="text-container__end-section-sub"
-                        value={info[element.id] ? info[element.id] : ""}
-                        style={{
-                          backgroundColor: element.flag && "#4caf50",
-                        }}
-                        onChange={(e) => {
-                          updateValue(element.id, e.target.value);
-                          setInfo({
-                            ...info,
-                            [e.target.name]: e.target.value,
-                          });
-                          idRef.current[
-                            Number(e.currentTarget.name) + 1
-                          ].focus();
-                        }}
-                        ref={addRef}
-                      ></input>
-                    );
-                  }
-                })}
-            </div>
-          );
-        } else {
-          return (
-            <div key={index + elements} className="text-container__match-main">
-              {dataUpdated[index].map((element, index) => {
-                if (element.answer !== " ") {
-                  return (
-                    <div key={index + element}>
-                      <input
-                        name={element.id}
-                        style={{
-                          backgroundColor: element.flag && "#4caf50",
-                        }}
-                        value={
-                          //valueFetcher(element.id)
-
-                          info[element.id] ? info[element.id] : ""
-                        }
-                        onChange={(e) => {
-                          updateValue(element.id, e.target.value);
-                          setInfo({
-                            ...info,
-                            [e.target.name]: e.target.value,
-                          });
-                          idRef.current[
-                            Number(e.currentTarget.name) + 1
-                          ].focus();
-                        }}
-                        ref={addRef}
-                      ></input>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div
-                      key={index + element}
-                      className="text-container__matched-section"
-                    >
-                      <input
-                        name={element.id}
-                        style={{
-                          backgroundColor: element.flag && "#4caf50",
-                        }}
-                        value={info[element.id] ? info[element.id] : ""}
-                        onChange={(e) => {
-                          updateValue(element.id, e.target.value);
-                          setInfo({
-                            ...info,
-                            [e.target.name]: e.target.value,
-                          });
-                          idRef.current[
-                            Number(e.currentTarget.name) + 1
-                          ].focus();
-                        }}
-                        ref={addRef}
-                      ></input>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          );
-        }
-      });
-
-      return displayMain;
+  const moveSelection = (id, text) => {
+    if (text !== "") {
+      if (id !== idRef.current.length - 1) {
+        idRef.current[id + 1].focus();
+      }
     }
   };
 
-  return <> {actualText && functionFinalForm(splitArrays, actualText)}</>;
+  const functionFinalForm = () => {
+    console.log(splitArrays);
+    const displayMain = actualText.split(" ").map((elements, index) => {
+      return (
+        <div key={index + elements} className="text-container__no-match-main">
+          {splitArrays &&
+            splitArrays[index].map((element, index) => {
+              if (element.answer !== " ") {
+                return (
+                  <div
+                    key={index + element}
+                    className="text-container__end-section"
+                  >
+                    <input
+                      ref={addRef}
+                      name={element.id}
+                      value={fetchvalue(element.id)}
+                      style={{
+                        backgroundColor: element.flag && "#4caf50",
+                      }}
+                      onChange={(e) => {
+                        updateValue(element.id, e.target.value);
+
+                        moveSelection(Number(e.target.name), e.target.value);
+                      }}
+                    ></input>
+                  </div>
+                );
+              } else {
+                return (
+                  <input
+                    ref={addRef}
+                    key={index + element}
+                    name={element.id}
+                    className="text-container__end-section-sub"
+                    value={fetchvalue(element.id)}
+                    style={{
+                      backgroundColor: element.flag && "#4caf50",
+                    }}
+                    onChange={(e) => {
+                      updateValue(element.id, e.target.value);
+
+                      moveSelection(Number(e.target.name), e.target.value);
+                    }}
+                  ></input>
+                );
+              }
+            })}
+        </div>
+      );
+    });
+
+    return displayMain;
+  };
+
+  return <> {splitArrays && functionFinalForm()}</>;
 }

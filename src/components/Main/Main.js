@@ -19,11 +19,15 @@ export default function Main() {
       .then((res) => {
         setData(wordSorter(res.data.data.sentence.toLowerCase()));
         setActualText(res.data.data.sentence.toLowerCase());
-        console.log(res.data.data.sentence.toLowerCase());
       })
       .catch((er) => {
         console.error(er);
       });
+
+    return () => {
+      setActualText("");
+      console.log("main unmount");
+    };
   }, []);
 
   const buttonPress = () => {
@@ -41,7 +45,6 @@ export default function Main() {
         .then((res) => {
           setData(wordSorter(res.data.data.sentence.toLowerCase()));
           setActualText(res.data.data.sentence.toLowerCase());
-          console.log(res.data.data.sentence.toLowerCase());
 
           setwinnerFlag(false);
         })

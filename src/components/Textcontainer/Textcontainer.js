@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import "./Textcontainer.scss";
 import { useState, useEffect, useRef } from "react";
 import Next from "../NextButton/NextButton";
@@ -6,7 +6,7 @@ import KeyInput from "../KeyInput/KeyInput";
 
 function Textcontainer({ text, nextClick }) {
   const [mainFlag, setmainFlag] = useState(false);
-  const [splitArrays, setsplitArrays] = useState();
+  const [splitArrays, setsplitArrays] = useState(null);
   const [actualText, setActualtext] = useState("");
 
   useEffect(() => {
@@ -14,7 +14,9 @@ function Textcontainer({ text, nextClick }) {
     setsplitArrays(() => splitArray(answerObject(text)));
 
     return () => {
-      setsplitArrays();
+      setsplitArrays(null);
+      setActualtext("");
+      console.log("text runs unmount");
     };
   }, [text]);
 
@@ -22,7 +24,7 @@ function Textcontainer({ text, nextClick }) {
     let arrayFinal = {};
     let count = 0;
 
-    answerMap.forEach((element) => {
+    answerMap.forEach((element, index) => {
       if (arrayFinal[count] === undefined) {
         arrayFinal[count] = [];
       }
@@ -31,7 +33,7 @@ function Textcontainer({ text, nextClick }) {
       } else {
         arrayFinal[count].push(element[0]);
 
-        count = count + 1;
+        count++;
       }
     });
 
@@ -41,21 +43,8 @@ function Textcontainer({ text, nextClick }) {
   //function to map the actual sentence to an object - use it later to compare the text
 
   const answerObject = (text) => {
-    let count = 0;
-    console.log(text);
-
-    return text.split("").map((word) => {
-      if (word === " ") {
-        count++;
-
-        return [{ id: count - 1, answer: word, value: "", flag: false }];
-      } else {
-        return word.split("").map((letter) => {
-          count++;
-
-          return { id: count - 1, answer: letter, value: "", flag: false };
-        });
-      }
+    return text.split("").map((word, index) => {
+      return [{ id: index, answer: word, value: "", flag: false }];
     });
   };
 
@@ -65,49 +54,53 @@ function Textcontainer({ text, nextClick }) {
     const valueused = splitArrays;
     const textLength = actualText.split(" ");
 
-    const finalData = textLength.map((element, index) => {
-      return valueused[index].filter((element) => {
-        return element.flag === false;
+    const updatedCheck = textLength.every((element, index) => {
+      return valueused[index].every((item) => {
+        return item.flag === true;
       });
     });
 
-    const flag = finalData.every((data) => {
-      return data.length === 0;
-    });
+    console.log(updatedCheck);
 
-    return flag;
+    return updatedCheck;
+  };
+
+  //value fetch
+
+  const fetchvalue = (id) => {
+    const selectedData = actualText.split(" ").map((element, index) => {
+      const checkedValue = splitArrays[index].filter((item) => {
+        return item.id === id;
+      });
+
+      return checkedValue;
+    });
   };
 
   //value updater function
 
   const updateValue = (id, text) => {
+    console.log(id);
     const stringvalue = id + 1;
-    const textLength = actualText.split(" ");
 
-    const finalData = textLength.map((element, index) => {
+    console.log(splitArrays);
+
+    const finalData = actualText.split(" ").map((element, index) => {
       return splitArrays[index].map((element) => {
         if (element.id === id) {
-          const updatedFlag = element.answer === text ? true : false;
+          console.log(id);
+          const updatedFlag = element.answer === text && true;
 
-          return {
-            id: id,
-            answer: element.answer,
-            value: text,
-            flag: updatedFlag,
-          };
+          return { ...element, flag: updatedFlag };
         } else {
           return element;
         }
       });
     });
 
-    setsplitArrays((e) => finalData);
+    console.log(finalData);
 
-    /* if (text !== "") {
-      if (id !== idRef.current.length - 1) {
-        idRef.current[id + 1].focus();
-      }
-    }*/
+    setsplitArrays((e) => finalData);
 
     if (allCorrectCheck(finalData)) {
       flagFinal();
@@ -125,14 +118,13 @@ function Textcontainer({ text, nextClick }) {
   return (
     <>
       <div className="text-container__main">
-        {!text ? (
-          <h1>Loading...</h1>
-        ) : (
+        {text && (
           <KeyInput
             actualText={text}
             flagFinal={flagFinal}
             updateValue={updateValue}
             splitArrays={splitArrays}
+            fetchvalue={fetchvalue}
           />
         )}
         <div className="text-container__button">
