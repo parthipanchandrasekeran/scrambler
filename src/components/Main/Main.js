@@ -23,11 +23,6 @@ export default function Main() {
       .catch((er) => {
         console.error(er);
       });
-
-    return () => {
-      setActualText("");
-      console.log("main unmount");
-    };
   }, []);
 
   const buttonPress = () => {

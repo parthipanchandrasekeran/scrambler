@@ -9,21 +9,6 @@ export default function KeyInput({
   const idRef = useRef([]);
   idRef.current = [];
 
-  useEffect(() => {
-    console.log(idRef.current);
-  }, []);
-
-  useEffect(() => {
-    //idRef.current[0].focus();
-    console.log(idRef.current);
-    //console.log(idRef.current[0]);
-    //idRef.current[0].focus();
-    return () => {
-      //idRef.current = [];
-      console.log("keinput unmount");
-    };
-  }, [actualText]);
-
   const addRef = (e) => {
     if (e && !idRef.current.includes(e)) {
       idRef.current.push(e);
@@ -39,10 +24,9 @@ export default function KeyInput({
   };
 
   const functionFinalForm = () => {
-    console.log(splitArrays);
     const displayMain = actualText.split(" ").map((elements, index) => {
       return (
-        <div key={index + elements} className="text-container__no-match-main">
+        <div key={index + actualText} className="text-container__no-match-main">
           {splitArrays &&
             splitArrays[index].map((element, index) => {
               if (element.answer !== " ") {
@@ -53,6 +37,7 @@ export default function KeyInput({
                   >
                     <input
                       ref={addRef}
+                      autoFocus={element.id == 0}
                       name={element.id}
                       value={fetchvalue(element.id)}
                       style={{

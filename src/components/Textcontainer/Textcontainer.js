@@ -12,12 +12,6 @@ function Textcontainer({ text, nextClick }) {
   useEffect(() => {
     setActualtext(() => text);
     setsplitArrays(() => splitArray(answerObject(text)));
-
-    return () => {
-      setsplitArrays(null);
-      setActualtext("");
-      console.log("text runs unmount");
-    };
   }, [text]);
 
   const splitArray = (answerMap) => {
@@ -60,8 +54,6 @@ function Textcontainer({ text, nextClick }) {
       });
     });
 
-    console.log(updatedCheck);
-
     return updatedCheck;
   };
 
@@ -80,25 +72,21 @@ function Textcontainer({ text, nextClick }) {
   //value updater function
 
   const updateValue = (id, text) => {
-    console.log(id);
     const stringvalue = id + 1;
-
-    console.log(splitArrays);
 
     const finalData = actualText.split(" ").map((element, index) => {
       return splitArrays[index].map((element) => {
         if (element.id === id) {
-          console.log(id);
-          const updatedFlag = element.answer === text && true;
-
-          return { ...element, flag: updatedFlag };
+          return {
+            ...element,
+            flag: element.answer === text && true,
+            value: text,
+          };
         } else {
           return element;
         }
       });
     });
-
-    console.log(finalData);
 
     setsplitArrays((e) => finalData);
 
@@ -120,10 +108,10 @@ function Textcontainer({ text, nextClick }) {
       <div className="text-container__main">
         {text && (
           <KeyInput
-            actualText={text}
+            splitArrays={splitArrays}
+            actualText={actualText}
             flagFinal={flagFinal}
             updateValue={updateValue}
-            splitArrays={splitArrays}
             fetchvalue={fetchvalue}
           />
         )}
