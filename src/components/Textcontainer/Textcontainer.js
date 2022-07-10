@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo } from "react";
 import "./Textcontainer.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Next from "../NextButton/NextButton";
 import KeyInput from "../KeyInput/KeyInput";
 
@@ -79,7 +78,7 @@ function Textcontainer({ text, nextClick }) {
         if (element.id === id) {
           return {
             ...element,
-            flag: element.answer === text && true,
+            flag: element.answer.toLowerCase() === text.toLowerCase() && true,
             value: text,
           };
         } else {
