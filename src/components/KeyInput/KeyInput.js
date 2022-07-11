@@ -27,7 +27,6 @@ export default function KeyInput({
     const updatedValueLast = selectedData.filter((element) => {
       return element.length !== 0;
     });
-    console.log(updatedValueLast);
   };
 
   const moveSelection = (id, text, flag) => {
@@ -40,7 +39,7 @@ export default function KeyInput({
   };
 
   const keyCheck = (code, id, value) => {
-    if (code === 8 && value === "") {
+    if (code === 8 && value === "" && id !== 0) {
       idRef.current[id - 1].focus();
     }
   };
@@ -53,12 +52,10 @@ export default function KeyInput({
             splitArrays[index].map((element, index) => {
               if (element.answer !== " ") {
                 return (
-                  <div
-                    key={index + element}
-                    className="text-container__end-section"
-                  >
+                  <div key={element.id} className="text-container__end-section">
                     <input
                       ref={addRef}
+                      onFocus={() => element.value}
                       autoFocus={element.id == 0}
                       name={element.id}
                       value={fetchvalue(element.id)}
@@ -85,6 +82,7 @@ export default function KeyInput({
                 return (
                   <input
                     ref={addRef}
+                    onFocus={() => element.value}
                     key={index + element}
                     name={element.id}
                     className="text-container__end-section-sub"

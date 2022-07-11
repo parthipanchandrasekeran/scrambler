@@ -1,9 +1,12 @@
 import React from "react";
+import { useRef } from "react";
 import "./NextButton.scss";
 
 function NextButton({ nextClick, flagchange }) {
   return (
     <button
+      autoFocus
+      type="submit"
       onClick={() => {
         nextClick();
 
