@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useRef } from "react";
 
 export default function KeyInput({
   actualText,
@@ -15,11 +15,33 @@ export default function KeyInput({
     }
   };
 
-  const moveSelection = (id, text) => {
-    if (text !== "") {
+  const flagReturn = (id) => {
+    const selectedData = actualText.split(" ").map((element, index) => {
+      const checkedValue = splitArrays[index].filter((item) => {
+        return item.id === id;
+      });
+
+      return checkedValue;
+    });
+
+    const updatedValueLast = selectedData.filter((element) => {
+      return element.length !== 0;
+    });
+    console.log(updatedValueLast);
+  };
+
+  const moveSelection = (id, text, flag) => {
+    flagReturn(id);
+    if (text !== "" && flag) {
       if (id !== idRef.current.length - 1) {
         idRef.current[id + 1].focus();
       }
+    }
+  };
+
+  const keyCheck = (code, id, value) => {
+    if (code === 8 && value === "") {
+      idRef.current[id - 1].focus();
     }
   };
 
@@ -46,7 +68,15 @@ export default function KeyInput({
                       onChange={(e) => {
                         updateValue(element.id, e.target.value);
 
-                        moveSelection(Number(e.target.name), e.target.value);
+                        moveSelection(
+                          Number(e.target.name),
+                          e.target.value,
+                          element.flag
+                        );
+                      }}
+                      onKeyDown={(e) => {
+                        keyCheck(e.keyCode, element.id, e.target.value);
+                        console.log(e.keyCode);
                       }}
                     ></input>
                   </div>
@@ -65,7 +95,15 @@ export default function KeyInput({
                     onChange={(e) => {
                       updateValue(element.id, e.target.value);
 
-                      moveSelection(Number(e.target.name), e.target.value);
+                      moveSelection(
+                        Number(e.target.name),
+                        e.target.value,
+                        element.flag
+                      );
+                    }}
+                    onKeyDown={(e) => {
+                      keyCheck(e.keyCode, element.id, e.target.value);
+                      console.log(e.keyCode);
                     }}
                   ></input>
                 );

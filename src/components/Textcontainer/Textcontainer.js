@@ -1,5 +1,5 @@
 import "./Textcontainer.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Next from "../NextButton/NextButton";
 import KeyInput from "../KeyInput/KeyInput";
 
@@ -7,6 +7,7 @@ function Textcontainer({ text, nextClick }) {
   const [mainFlag, setmainFlag] = useState(false);
   const [splitArrays, setsplitArrays] = useState(null);
   const [actualText, setActualtext] = useState("");
+  const nextRef = useRef();
 
   useEffect(() => {
     setActualtext(() => text);
@@ -115,7 +116,14 @@ function Textcontainer({ text, nextClick }) {
           />
         )}
         <div className="text-container__button">
-          {mainFlag && <Next nextClick={nextClick} flagchange={flagChange} />}
+          {mainFlag && (
+            <Next
+              ref={nextRef}
+              autoFocus={nextRef}
+              nextClick={nextClick}
+              flagchange={flagChange}
+            />
+          )}
         </div>
       </div>
     </>
