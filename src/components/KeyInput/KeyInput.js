@@ -15,23 +15,8 @@ export default function KeyInput({
     }
   };
 
-  const flagReturn = (id) => {
-    const selectedData = actualText.split(" ").map((element, index) => {
-      const checkedValue = splitArrays[index].filter((item) => {
-        return item.id === id;
-      });
-
-      return checkedValue;
-    });
-
-    const updatedValueLast = selectedData.filter((element) => {
-      return element.length !== 0;
-    });
-  };
-
-  const moveSelection = (id, text, flag) => {
-    flagReturn(id);
-    if (text !== "" && flag) {
+  const moveSelection = (id, text, answer) => {
+    if (text !== "" && text === answer) {
       if (id !== idRef.current.length - 1) {
         idRef.current[id + 1].focus();
       }
@@ -68,12 +53,11 @@ export default function KeyInput({
                         moveSelection(
                           Number(e.target.name),
                           e.target.value,
-                          element.flag
+                          element.answer
                         );
                       }}
                       onKeyDown={(e) => {
                         keyCheck(e.keyCode, element.id, e.target.value);
-                        console.log(e.keyCode);
                       }}
                     ></input>
                   </div>
@@ -96,7 +80,7 @@ export default function KeyInput({
                       moveSelection(
                         Number(e.target.name),
                         e.target.value,
-                        element.flag
+                        element.answer
                       );
                     }}
                     onKeyDown={(e) => {
