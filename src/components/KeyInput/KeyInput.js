@@ -16,7 +16,7 @@ export default function KeyInput({
   };
 
   const moveSelection = (id, text, answer) => {
-    if (text !== "" && text === answer) {
+    if (text !== "" && text.toLowerCase() === answer.toLowerCase()) {
       if (id !== idRef.current.length - 1) {
         idRef.current[id + 1].focus();
       }
@@ -41,7 +41,7 @@ export default function KeyInput({
                     <input
                       ref={addRef}
                       onFocus={() => element.value}
-                      autoFocus={element.id == 0}
+                      autoFocus={element.id === 0}
                       name={element.id}
                       value={fetchvalue(element.id)}
                       style={{
