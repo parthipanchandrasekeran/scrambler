@@ -120,7 +120,7 @@ export default function Main() {
         </h1>
         <section className="word-main__text">
           <p className="word-main__guess-text">
-            Guess the sentence! Start typing.
+            Guess the sentence! Start typing.(Use Landscape mode for Devices)
           </p>
           <p className="word-main__clue-text">
             The yellow blocks are meant for spaces
